@@ -39,6 +39,14 @@ Use it with most careful!!!
 1. Options (Browser) Page
 
 == Changelog ==
+= 0.5.1 =
+* Respect open_basedir restriction
+* removed codepress in editor
+* add codemirror in editor for syntaxheigleiding
+* removed anchor becouse work not correctly
+* make chnages more robust
+* pevent directly file loading
+* fixed some bugs
 
 = 0.5.0 =
 * Inital release

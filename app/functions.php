@@ -1,4 +1,7 @@
 <?PHP
+// don't load directly 
+if ( !defined('ABSPATH') ) 
+	die('-1');	
 	
 	//Thems Option menu entry
 	function filebrowser_menu_entry() {
@@ -14,7 +17,7 @@
 		$help .= ' | <a href="http://wordpress.org/extend/plugins/filebrowser/faq/" target="_blank">' . __('FAQ') . '</a>';
 		$help .= ' | <a href="http://danielhuesken.de/portfolio/filebrowser" target="_blank">' . __('Plugin Homepage', 'filebrowser') . '</a>';
 		$help .= ' | <a href="http://wordpress.org/extend/plugins/filebrowser" target="_blank">' . __('Plugin Home on WordPress.org', 'filebrowser') . '</a>';
-		$help .= ' | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=daniel%40huesken-net%2ede&item_name=Daniel%20Huesken%20Plugin%20Donation&item_number=FileBrowser&no_shipping=0&no_note=1&tax=0&currency_code=EUR&lc=DE&bn=PP%2dDonationsBF&charset=UTF%2d8" target="_blank">' . __('Donate') . '</a>';
+		$help .= ' | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=daniel%40huesken-net%2ede&amp;item_name=Daniel%20Huesken%20Plugin%20Donation&amp;item_number=FileBrowser&amp;no_shipping=0&amp;no_note=1&amp;tax=0&amp;currency_code=EUR&amp;lc=DE&amp;bn=PP%2dDonationsBF&amp;charset=UTF%2d8" target="_blank">' . __('Donate') . '</a>';
 		$help .= "</div>\n";	
 		$help .= '<div class="metabox-prefs">';
 		$help .= __('Version:', 'backwpup').' '.FILEBROWSER_VERSION.' | ';
@@ -25,7 +28,7 @@
 	
 	//Options Page
 	function filebrowser_options_page() {
-		global $filebrowser_message;
+		global $filebrowser_message,$gotofolder;
 		if (!current_user_can(10)) 
 			wp_die('No rights');
 		if(!empty($filebrowser_message)) 
@@ -42,20 +45,29 @@
 	
 	//Options Page
 	function filebrowser_options_load() {
-		global $filebrowser_message;
+		global $filebrowser_message,$gotofolder;
+		$gotofolder=str_replace('\\','/',ABSPATH);
 		if (!current_user_can(10)) 
 			wp_die('No rights');
 		//Css for Admin Section
 		wp_enqueue_style('FileBrowser',plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/css/options.css'),'',FILEBROWSER_VERSION,'screen');
-		//wp_enqueue_script('BackWpupOptions',plugins_url('/'.BACKWPUP_PLUGIN_DIR.'/app/js/options.js'),array('jquery','utils','jquery-ui-core'),BACKWPUP_VERSION,true);
-		if ( use_codepress() and $_GET['action']=='edit')
-			wp_enqueue_script( 'codepress' );
+		if ($_GET['action']=='edit')
+			wp_enqueue_script('CodeMirror',plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/codemirror/js/codemirror.js'),'','0.62',false);
 		if ($_POST['action2']!='-1')
 			$action=$_POST['action2'];
 		if ($_POST['action']!='-1')
 			$action=$_POST['action'];
 		if (!empty($_GET['action']) and empty($action))
 			$action=$_GET['action'];
+		//For change folder by hand
+		if ($_POST['doactiongo']==__('Go','filebrowser')) {
+			if (@is_dir(str_replace('\\','/',realpath($_POST['root'].$_POST['newfolder'])))) {
+				$gotofolder=str_replace('\\','/',realpath($_POST['root'].$_POST['newfolder']));
+			} else {
+				$gotofolder=$_POST['oldusedfolder'];
+				$filebrowser_message=__('Could not joump to folder.','filebrowser');
+			}
+		}
 		//For save Options
 		require_once(WP_PLUGIN_DIR.'/'.FILEBROWSER_PLUGIN_DIR.'/app/options-save.php');
 	}

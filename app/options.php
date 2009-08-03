@@ -1,12 +1,26 @@
  <?php
+ // don't load directly 
+if ( !defined('ABSPATH') ) 
+	die('-1');	
+ 
  	//Set dir
-	$folder=trailingslashit(str_replace('\\','/',realpath($_GET['file'])));
-	if (empty($_GET['file']))
-		$folder=trailingslashit(str_replace('\\','/',ABSPATH));
+	if (ini_get('open_basedir')) {
+		$opdenbasedirs=explode(':',str_replace('\\','/',ini_get('open_basedir')));
+	} else {
+		if (function_exists('posix_getpwuid'))
+			$opdenbasedirs=array('/');
+		else
+			$opdenbasedirs=array('A:/','B:/','C:/','D:/','E:/','F:/','G:/','H:/','I:/','J:/','K:/','L:/','M:/','N:/','O:/','P:/','Q:/','R:/','S:/','T:/','U:/','V:/','W:/','X:/','Y:/','Z:/');
+	}
+	$opdenbasedirs=array_unique($opdenbasedirs);
+	
+	$folder=trailingslashit($gotofolder);
+	if (!empty($_GET['gotofolder']))
+		$folder=trailingslashit(str_replace('\\','/',realpath($_GET['gotofolder']))); //dirchange
  ?>
 <div class="wrap">
 	<div id="icon-tools" class="icon32"><br /></div>
-<h2><?php _e("FileBrowser", "filebrowser"); ?>&nbsp;<a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=new&file='.$folder, 'filebrowser').'#new'; ?>" class="button add-new-h2"><?php esc_html_e('Add New'); ?></a></h2>
+<h2><?php _e("FileBrowser", "filebrowser"); ?>&nbsp;<a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=new&gotofolder='.$folder, 'filebrowser'); ?>" class="button add-new-h2"><?php esc_html_e('Add New'); ?></a></h2>
 
 <form id="filebrowser" action="" method="post" enctype="multipart/form-data">
 <?php wp_nonce_field('filebrowser'); ?>
@@ -22,23 +36,46 @@
 <option value="zip"><?PHP _e('Zip','filebrowser'); ?></option> 
 </select> 
 <input type="submit" value="<?PHP _e('Apply','filebrowser'); ?>" name="doaction" id="doaction" class="button-secondary action" /> 
-</div> 
- 
-<br class="clear" /> 
-</div> 
 
-<div class="clear"></div> 
-<div class="alignleft">
-<big><?php echo $folder; ?></big>&nbsp;
-<a href="admin.php?page=FileBrowser&file=<?PHP echo $folder.'..'; if (!empty($_GET['copyfiles'])) echo '&copyfiles='.esc_attr($_GET['copyfiles']); if (!empty($_GET['movefiles'])) echo '&movefiles='.esc_attr($_GET['movefiles']);?>"><img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR; ?>/app/icons/arrow_undo.png" border="0" title="<?PHP _e('..','filebrowser');?>" /></a>&nbsp;
-<a href="admin.php?page=FileBrowser&file=<?PHP echo $folder; if (!empty($_GET['copyfiles'])) echo '&copyfiles='.esc_attr($_GET['copyfiles']); if (!empty($_GET['movefiles'])) echo '&movefiles='.esc_attr($_GET['movefiles']);?>"><img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR; ?>/app/icons/arrow_refresh.png" border="0" title="<?PHP _e('Refresh','filebrowser');?>" /></a>&nbsp;
+<?php
+if (count($opdenbasedirs)>1) {
+	echo '<select name="root">';
+	foreach ($opdenbasedirs as $roots) {
+		echo '<option value="'.esc_attr($roots).'"'.selected(substr($folder,0,strlen($roots)),$roots,false).'>'.$roots.'</option>';
+		if (substr($folder,0,strlen($roots))==$roots) 
+			$folderrest=substr($folder,strlen($roots));
+	}
+	echo '</select>';
+} else {
+	foreach ($opdenbasedirs as $roots) {
+		echo '<input type="hidden" name="root" value="'.esc_attr($roots).'" />';
+		echo '<big>'.$roots.'</big>';
+		$folderrest=substr($folder,strlen($roots));
+	}
+}
+echo '<input type="hidden" name="oldusedfolder" value="'.esc_attr($folder).'" />';
+?>
+<input type="text" size="60" name="newfolder" value="<?php echo $folderrest; ?>" />
+<input type="submit" value="<?PHP _e('Go','filebrowser'); ?>" name="doactiongo" id="doactiongo" class="button-secondary action" />
+&nbsp;
+<?PHP if (!in_array($folder,$opdenbasedirs)) { ?>
+	<a href="admin.php?page=FileBrowser&amp;gotofolder=<?PHP echo $folder.'..'; if (!empty($_GET['copyfiles'])) echo '&amp;copyfiles='.esc_attr($_GET['copyfiles']); if (!empty($_GET['movefiles'])) echo '&amp;movefiles='.esc_attr($_GET['movefiles']);?>"><img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR; ?>/app/icons/arrow_undo.png" border="0" title="<?PHP _e('..','filebrowser');?>" alt="<?PHP _e('..','filebrowser');?>" /></a>&nbsp;
+<?PHP } ?>
+<a href="admin.php?page=FileBrowser&amp;gotofolder=<?PHP echo $folder; if (!empty($_GET['copyfiles'])) echo '&amp;copyfiles='.esc_attr($_GET['copyfiles']); if (!empty($_GET['movefiles'])) echo '&amp;movefiles='.esc_attr($_GET['movefiles']);?>"><img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR; ?>/app/icons/arrow_refresh.png" border="0" title="<?PHP _e('Refresh','filebrowser');?>" alt="<?PHP _e('Refresh','filebrowser');?>" /></a>&nbsp;
 <?PHP if (!empty($_GET['copyfiles'])) { ?>
-	<a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=copynow&copyfiles='.esc_attr($_GET['copyfiles']).'&copyto='.esc_attr($folder), 'filebrowser'); ?>"><img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR; ?>/app/icons/arrow_in.png" border="0" title="<?PHP _e('Copy hier','filebrowser');?>" /></a>&nbsp;
+	<a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=copynow&copyfiles='.esc_attr($_GET['copyfiles']).'&copyto='.esc_attr($folder), 'filebrowser'); ?>"><img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR; ?>/app/icons/arrow_in.png" border="0" title="<?PHP _e('Copy hier','filebrowser');?>" alt="<?PHP _e('Copy hier','filebrowser');?>" /></a>&nbsp;
 <?PHP } ?>
 <?PHP if (!empty($_GET['movefiles'])) { ?>
-	<a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=movenow&movefiles='.esc_attr($_GET['movefiles']).'&moveto='.esc_attr($folder), 'filebrowser'); ?>"><img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR; ?>/app/icons/arrow_in.png" border="0" title="<?PHP _e('Move hier','filebrowser');?>" /></a>&nbsp;
+	<a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=movenow&movefiles='.esc_attr($_GET['movefiles']).'&moveto='.esc_attr($folder), 'filebrowser'); ?>"><img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR; ?>/app/icons/arrow_in.png" border="0" title="<?PHP _e('Move hier','filebrowser');?>" alt="<?PHP _e('Move hier','filebrowser');?>" /></a>&nbsp;
 <?PHP } ?>
+
+</div> 
+ 
+<br class="clear" />
 </div>
+
+<div class="clear"></div>
+
 <table class="widefat fixed" cellspacing="0"> 
 	<thead> 
 	<tr> 
@@ -64,16 +101,14 @@
 	</tr> 
 	</tfoot> 
  
-	<tbody id="the-list" class="list:post"> 
-	
+	<tbody> 
 	<?PHP
 	$dirs=array();
-	//Open dir
 	if ( $dir = @opendir( $folder ) ) {
 		while (false !== ($file = readdir($dir))) {
 			if ($file=='.' or $file=='..')
 				continue;
-			if (is_dir($folder.$file))
+			if (@is_dir($folder.$file))
 				$dirs[]=$folder.$file;
 		}
 		@closedir( $dir );
@@ -82,7 +117,9 @@
 	$files=array();
 	if ( $dir = @opendir( $folder ) ) {
 		while (false !== ($file = readdir($dir))) {
-			if (!is_dir($folder.$file))
+			if ($file=='.' or $file=='..')
+				continue;
+			if (!@is_dir($folder.$file))
 				$files[]=$folder.$file;
 		}
 		@closedir( $dir );
@@ -91,24 +128,24 @@
 	$files=array_merge($dirs,$files);
 
 	
-	
 	if ($_GET['action']=='new') {
 	?>
 	<tr class="alternate status-inherit" valign="top"> 
 		<th scope="row" class="check-column">&nbsp;</th> 
 		<td class="name column-name">
-			<a name="new"><img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR.'/app/icons/file.png'; ?>" height="16" width="16" border="0" title="<?PHP _e('Create empty','filebrowser'); ?>" /></a>&nbsp;
+			<img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR.'/app/icons/file.png'; ?>" height="16" width="16" border="0" title="<?PHP _e('Create empty','filebrowser'); ?>" alt="<?PHP _e('Create empty','filebrowser'); ?>" />&nbsp;
 			<input type="text" class="regular-text" name="newname" size="30" value="" />
 			<select name="type"><option value="dir"><?PHP _e('Directory','filebrowser');?></option><option value="file"><?PHP _e('File','filebrowser');?></option></select><br />
 			<input type="hidden" name="dir" value="<?PHP echo esc_attr($folder);?>" />
-			<input type="hidden" name="action" value="makenew" />
-			<img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR.'/app/icons/disk.png'; ?>" height="16" width="16" border="0" title="<?PHP _e('Upload file','filebrowser'); ?>" />&nbsp;<input name="uplodfile" type="file" size="40" class="file"> <?PHP echo _e('Max size:','filebrowser').' '.ini_get('upload_max_filesize');?><br />
-			<img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR.'/app/icons/connect.png'; ?>" height="16" width="16" border="0" title="<?PHP _e('Copy file from URL','filebrowser'); ?>" />&nbsp;<input type="text" class="regular-text" size="40" name="copyfile" value="" />&nbsp;
-			<input type="submit" value="<?PHP _e('Apply','filebrowser'); ?>" name="doaction" id="doaction" class="button-secondary action" />
+			<img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR.'/app/icons/disk.png'; ?>" height="16" width="16" border="0" title="<?PHP _e('Upload file','filebrowser'); ?>" alt="<?PHP _e('Upload file','filebrowser'); ?>" />&nbsp;<input name="uplodfile" type="file" size="40" class="file"> <?PHP echo _e('Max size:','filebrowser').' '.ini_get('upload_max_filesize');?><br />
+			<img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR.'/app/icons/connect.png'; ?>" height="16" width="16" border="0" title="<?PHP _e('Copy file from URL','filebrowser'); ?>" alt="<?PHP _e('Copy file from URL','filebrowser'); ?>" />&nbsp;<input type="text" class="regular-text" size="40" name="copyfile" value="" />&nbsp;
+			<input type="submit" value="<?PHP _e('Create','filebrowser'); ?>" name="doactionnew" id="doactionnew" class="button-secondary action" />
 		</td>
 		<td class="column-size">&nbsp;</td> 
 		<td class="column-mdate">&nbsp;</td>
-		<td class="column-premissions">&nbsp;</td>
+		<?PHP if (function_exists('posix_getpwuid') and function_exists('posix_getgrgid')) {?>
+			<td class="column-premissions">&nbsp;</td>
+		<?PHP }?>
 		</td> 
 	</tr>
 	<?PHP 
@@ -119,9 +156,9 @@
 	<tr class="alternate status-inherit" valign="top"> 
 		<th scope="row" class="check-column">&nbsp;</th> 
 		<td class="name column-name">
-			<a name="new"><img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR.'/app/icons/zip.png'; ?>" height="16" width="16" border="0" /></a>&nbsp;
-			<input type="text" class="regular-text" name="zipname" value="<?PHP echo basename($file);?>" />
-			<input type="hidden" name="dir" value="<?PHP echo esc_attr($folder);?>" />
+			<img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR.'/app/icons/zip.png'; ?>" height="16" width="16" border="0" title="<?PHP _e('Zip file name','filebrowser'); ?>" alt="<?PHP _e('Zip file name','filebrowser'); ?>" />&nbsp;
+			<input type="text" class="regular-text" name="zipname" value=".zip" />
+			<input type="hidden" name="folder" value="<?PHP echo esc_attr($folder);?>" />
 			<?PHP
 			if(is_array($_POST['selfiles'])) {
 				$zipfiles=implode(';',$_POST['selfiles']);
@@ -130,19 +167,20 @@
 			}		
 			?>
 			<input type="hidden" name="zipfiles" value="<?PHP echo esc_attr($zipfiles);?>" />
-			<input type="hidden" name="action" value="makezip" />
-			<input type="submit" value="<?PHP _e('Create Zip','filebrowser'); ?>" name="doaction" id="doaction" class="button-secondary action" />
+			<input type="submit" value="<?PHP _e('Create Zip','filebrowser'); ?>" name="doactionzip" id="doactionzip" class="button-secondary action" />
 		</td>
 		<td class="column-size">&nbsp;</td> 
 		<td class="column-mdate">&nbsp;</td>
-		<td class="column-premissions">&nbsp;</td>
+		<?PHP if (function_exists('posix_getpwuid') and function_exists('posix_getgrgid')) {?>
+			<td class="column-premissions">&nbsp;</td>
+		<?PHP }?>
 		</td> 
 	</tr>
 	<?PHP 
 	}
 	
 	foreach ($files as $file) {
-			if (!($filestats=stat($file)))
+			if (!($filestats=@stat($file)))
 				unset($filestats);
 	?>
 	<tr class="alternate status-inherit" valign="top"> 
@@ -151,11 +189,11 @@
 		</th> 
 		<?PHP if (is_dir($file)) {?>
 		<td class="name column-name">
-					<a name="<?PHP echo basename($file);?>"><img src="<?PHP echo filebrowser_fileicon($file); ?>" height="16" width="16" border="0" /></a>&nbsp;
+					<img src="<?PHP echo filebrowser_fileicon($file); ?>" height="16" width="16" border="0" alt="<?PHP _e('Folder','filebrowser'); ?>" />&nbsp;
 					<?PHP if ($_GET['action']=='rename' and $_GET['filerename']==$file) {?>
-						<input type="text" class="regular-text" name="newname" value="<?PHP echo basename($file);?>" /><input type="hidden" name="oldfile" value="<?PHP echo esc_attr($file);?>" /><input type="hidden" name="action" value="renamenow" /><input type="submit" value="<?PHP _e('Apply','filebrowser'); ?>" name="doaction" class="button-secondary action" />
+						<input type="text" class="regular-text" name="newname" value="<?PHP echo basename($file);?>" /><input type="hidden" name="oldfile" value="<?PHP echo esc_attr($file);?>" /><input type="submit" value="<?PHP _e('Rename','filebrowser'); ?>" name="doactionrename" class="button-secondary action" />
 					<?PHP } else { ?>
-						<strong><a href="admin.php?page=FileBrowser&file=<?PHP echo esc_attr($file); if (!empty($_GET['copyfiles'])) echo '&copyfiles='.esc_attr($_GET['copyfiles']); if (!empty($_GET['movefiles'])) echo '&movefiles='.esc_attr($_GET['movefiles']);?>"><?PHP echo basename($file);?></a></strong>
+						<strong><a href="admin.php?page=FileBrowser&amp;gotofolder=<?PHP echo esc_attr($file); if (!empty($_GET['copyfiles'])) echo '&amp;copyfiles='.esc_attr($_GET['copyfiles']); if (!empty($_GET['movefiles'])) echo '&amp;movefiles='.esc_attr($_GET['movefiles']);?>"><?PHP echo basename($file);?></a></strong>
 					<?PHP } ?>
 					<div class="row-actions">
 						<?PHP if (is_writable($file)) {?>
@@ -163,23 +201,23 @@
 						<?PHP } ?>
 						<span class="copy"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=copy&selfiles='.esc_attr($file), 'filebrowser'); ?>"><?PHP _e('Copy','filebrowser'); ?></a> | </span>
 						<span class="move"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=move&selfiles='.esc_attr($file), 'filebrowser'); ?>"><?PHP _e('Move','filebrowser'); ?></a> | </span>
-						<span class="rename"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=rename&filerename='.esc_attr($file).'&file='.esc_attr(dirname($file)), 'rename-file_'.esc_attr($file)).'#'.basename($file); ?>"><?PHP _e('Rename','filebrowser'); ?></a> | </span>
+						<span class="rename"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=rename&filerename='.esc_attr($file).'&gotofolder='.esc_attr(dirname($file)), 'rename-file_'.esc_attr($file)); ?>"><?PHP _e('Rename','filebrowser'); ?></a> | </span>
 						<?PHP if (function_exists('posix_getpwuid') and function_exists('posix_getgrgid')) {?>
-							<span class="premissions"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=premissions&filepremissions='.esc_attr($file), 'premissions-file_'.esc_attr($file)).'#'.basename($file); ?>"><?PHP _e('Premissions','filebrowser'); ?></a> | </span>
+							<span class="premissions"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=premissions&filepremissions='.esc_attr($file), 'premissions-file_'.esc_attr($file)); ?>"><?PHP _e('Premissions','filebrowser'); ?></a> | </span>
 						<?PHP } ?>
-						<span class="zip"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=zip&selfiles='.esc_attr($file), 'filebrowser'); ?>"><?PHP _e('Zip','filebrowser'); ?></a></span>
+						<span class="zip"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=zip&selfiles='.esc_attr($file).'&gotofolder='.esc_attr($file.'/..'), 'filebrowser'); ?>"><?PHP _e('Zip','filebrowser'); ?></a></span>
 					</div>
 		</td> 		
 		<?PHP } else { ?>
 		<td class="name column-name">
-					<a name="<?PHP echo basename($file);?>"><img src="<?PHP echo filebrowser_fileicon($file); ?>" height="16" width="16" border="0" /></a>&nbsp;
+					<img src="<?PHP echo filebrowser_fileicon($file); ?>" height="16" width="16" border="0" alt="<?PHP echo pathinfo($file,PATHINFO_EXTENSION); ?>" />&nbsp;
 					<?PHP if ($_GET['action']=='rename' and $_GET['filerename']==$file) {?>
-						<input type="text" class="regular-text" name="newname" value="<?PHP echo basename($file);?>" /><input type="hidden" name="oldfile" value="<?PHP echo esc_attr($file);?>" /><input type="hidden" name="action" value="renamenow" /><input type="submit" value="<?PHP _e('Apply','filebrowser'); ?>" name="doaction" class="button-secondary action" />
+						<input type="text" class="regular-text" name="newname" value="<?PHP echo basename($file);?>" /><input type="hidden" name="oldfile" value="<?PHP echo esc_attr($file);?>" /><input type="submit" value="<?PHP _e('Rename','filebrowser'); ?>" name="doactionrename" class="button-secondary action" />
 					<?PHP } else { ?>
-						<strong><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=download&file='.esc_attr($file), 'download-file_'.esc_attr($file)); ?>"><?PHP echo basename($file);?></a></strong>
+						<strong><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=download&selfile='.esc_attr($file), 'download-file_'.esc_attr($file)); ?>"><?PHP echo basename($file);?></a></strong>
 					<?PHP } ?>
 					<div class="row-actions">
-						<?PHP if (is_writable($file) and in_array(strtolower(pathinfo($file,PATHINFO_EXTENSION)),array('php','txt','log','html','htm','php3','css','js','ini','nfo','sh','cmd','bat','htaccess'))) {?>
+						<?PHP if (is_writable($file) and in_array(strtolower(pathinfo($file,PATHINFO_EXTENSION)),array('php','txt','log','html','htm','php3','css','js','ini','nfo','sh','cmd','bat','htaccess','xml'))) {?>
 							<span class="edit"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=edit&selfile='.esc_attr($file), 'edit-file'); ?>"><?PHP _e('Edit','filebrowser'); ?></a> | </span>
 						<?PHP } ?>
 						<?PHP if (is_writable($file)) {?>
@@ -187,14 +225,14 @@
 						<?PHP } ?>
 						<span class="copy"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=copy&selfiles='.esc_attr($file), 'filebrowser'); ?>"><?PHP _e('Copy','filebrowser'); ?></a> | </span>
 						<span class="move"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=move&selfiles='.esc_attr($file), 'filebrowser'); ?>"><?PHP _e('Move','filebrowser'); ?></a> | </span>
-						<span class="rename"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=rename&filerename='.esc_attr($file).'&file='.esc_attr(dirname($file)), 'rename-file_'.esc_attr($file)).'#'.basename($file); ?>"><?PHP _e('Rename','filebrowser'); ?></a> | </span>
+						<span class="rename"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=rename&filerename='.esc_attr($file).'&gotofolder='.esc_attr(dirname($file)), 'rename-file_'.esc_attr($file)); ?>"><?PHP _e('Rename','filebrowser'); ?></a> | </span>
 						<?PHP if (function_exists('posix_getpwuid') and function_exists('posix_getgrgid')) {?>
-							<span class="premissions"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=premissions&filepremissions='.esc_attr($file), 'premissions-file_'.esc_attr($file)).'#'.basename($file); ?>"><?PHP _e('Premissions','filebrowser'); ?></a> | </span>
+							<span class="premissions"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=premissions&filepremissions='.esc_attr($file), 'premissions-file_'.esc_attr($file)); ?>"><?PHP _e('Premissions','filebrowser'); ?></a> | </span>
 						<?PHP }
 						if (strtolower(pathinfo($file,PATHINFO_EXTENSION))=="zip") {?>
 							<span class="zip"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=unzip&selfiles='.esc_attr($file), 'filebrowser'); ?>"><?PHP _e('UnZip here','filebrowser'); ?></a></span>
 						<?PHP } else { ?>
-							<span class="zip"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=zip&selfiles='.esc_attr($file), 'filebrowser'); ?>"><?PHP _e('Zip','filebrowser'); ?></a></span>
+							<span class="zip"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=zip&selfiles='.esc_attr($file).'&gotofolder='.esc_attr($file), 'filebrowser'); ?>"><?PHP _e('Zip','filebrowser'); ?></a></span>
 						<?PHP } ?>
 					</div>
 		</td> 
@@ -229,7 +267,7 @@
 				echo __('Pub:','filebrowser').' <input class="checkbox" value="4" type="checkbox"'.checked(substr($prem,7,1),'r',false).' name="prems[]" />r <input class="checkbox" value="2" type="checkbox"'.checked(substr($prem,8,1),'w',false).' name="prems[]" />w <input class="checkbox" value="1" type="checkbox"'.checked(substr($prem,9,1),'x',false).' name="prems[]" />x<br />';
 				echo __('Own:','filebrowser').' <input class="small-text" value="'.esc_attr($owner['name']).'" type="text" name="owner" /><br />';
 				echo __('Grp:','filebrowser').' <input class="small-text" value="'.esc_attr($grp['name']).'" type="text" name="group" /><br />';
-				echo '<input type="hidden" name="changefile" value="'.esc_attr($file).'" /><input type="hidden" name="action" value="permissionsnow" /><input type="submit" value="'.__('Apply','filebrowser').'" name="doaction" class="button-secondary action" />';
+				echo '<input type="hidden" name="changefile" value="'.esc_attr($file).'" /><input type="submit" value="'.__('Change','filebrowser').'" name="doactionpremissions" class="button-secondary action" />';
 			} else {
 				if (is_array($filestats)) {
 					echo filebrowser_premissions($file).'<br />';
@@ -264,4 +302,4 @@
 </form> 
 <br class="clear" /> 
  
-<div>
+</div>

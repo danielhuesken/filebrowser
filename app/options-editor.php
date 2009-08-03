@@ -1,9 +1,15 @@
+<?php
+// don't load directly 
+if ( !defined('ABSPATH') ) 
+	die('-1');	
+?>
 <div class="wrap">
 	<div id="icon-tools" class="icon32"><br /></div>
 <h2><?php _e("FileBrowser Editor", "filebrowser"); ?></h2>
 <div class="alignleft">
 <big><?php echo __('Edit:','filebrowser').' '.$_GET['selfile']; ?></big>
 </div>
+<br class="clear" /> 
 <form id="fileseditor" action="" method="post">
 <?php 
 	check_admin_referer('edit-file');
@@ -15,15 +21,30 @@
 		$codepress_lang = codepress_get_lang($file);
 	}
 ?>
-		<div>
-		<textarea cols="120" rows="25" name="newfilecontent" id="newfilecontent" tabindex="1" class="codepress <?php echo $codepress_lang ?>"><?php echo $content ?></textarea>
+		<div style="border: 1px solid black; padding: 0px;">
+		<textarea cols="100" rows="25" name="newfilecontent" id="newfilecontent" tabindex="1"><?php echo $content ?></textarea>
 		<input type="hidden" name="action" value="updatefile" />
 		<input type="hidden" name="selfile" value="<?php echo esc_attr($file) ?>" />
 		<input type="hidden" name="page" value="FileBrowser" />
 		</div>
 <?php
-	echo "<input type='submit' name='submit' class='button-primary' value='" . esc_attr__('Update File') . "' tabindex='2' />";
+	echo '<input type="submit" name="submit" class="button-primary" value="' . esc_attr__('Update File') . '" tabindex="2" />';
 ?>
 </form> 
 <br class="clear" /> 
-<div>
+</div>
+		<script type="text/javascript">
+		var editor = CodeMirror.fromTextArea('newfilecontent', {
+			height: "450px",
+			parserfile: ["parsexml.js", "parsedummy.js", "parsecss.js", "tokenizejavascript.js", "parsejavascript.js","tokenizephp.js", "parsephp.js","parsephphtmlmixed.js","parselua.js"],
+			stylesheet: ["<?PHP echo plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/codemirror/css/'); ?>xmlcolors.css",
+						"<?PHP echo plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/codemirror/css/'); ?>jscolors.css",
+						"<?PHP echo plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/codemirror/css/'); ?>csscolors.css",
+						"<?PHP echo plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/codemirror/css/'); ?>luacolors.css", 
+						"<?PHP echo plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/codemirror/css/'); ?>phpcolors.css"],
+			path: "<?PHP echo plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/codemirror/js/'); ?>",
+			continuousScanning: 500,
+			lineNumbers: true,
+			textWrapping: false
+		});
+		</script>
