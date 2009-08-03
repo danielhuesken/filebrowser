@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=danie
 Tags: admin, file, folder
 Requires at least: 2.8
 Tested up to: 2.8.2
-Stable tag: 0.5.0
+Stable tag: 0.5.1
 
 File/Folder Browser for WP Backend
 
