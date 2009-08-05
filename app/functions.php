@@ -127,10 +127,10 @@ if ( !defined('ABSPATH') )
 		if (is_link($file))
 			return $iconspath.'link.png';
 		if (is_executable($file))
-			return $iconspath.'aplication.png';
+			return $iconspath.'application.png';
 		if (is_file($file)) {
 			$extension = strtolower(pathinfo($folder.$file,PATHINFO_EXTENSION));
-			if ($extension=='sh' or $extension=='bat' or $extension=='cmd')
+			if (in_array($extension,array('sh','bat','cmd')))
 				return $iconspath.'application_xp_terminal.png';
 			if ($extension=='ai')	
 				return $iconspath.'ai.png';
@@ -172,7 +172,7 @@ if ( !defined('ABSPATH') )
 				return $iconspath.'html.png';
 			if ($extension=='iso' or $extension=='nrg')	
 				return $iconspath.'iso.png';
-			if ($extension=='jpg' or $extension=='jpeg' or  $extension=='gif' or $extension=='png' or $extension=='bmp' or $extension=='ico')
+			if (in_array($extension,array('jpg','jpeg','gif','png','bmp','ico')))
 				return $iconspath.'image.png';
 			if ($extension=='js')	
 				return $iconspath.'js.png';
@@ -206,7 +206,7 @@ if ( !defined('ABSPATH') )
 				return $iconspath.'pdf.png';
 			if ($extension=='pgp')
 				return $iconspath.'pgp.png';
-			if ($extension=='php' or $extension=='php3' or $extension=='php4')
+			if (in_array($extension,array('php','php3','php4','phtml','phtm')))
 				return $iconspath.'php.png';
 			if ($extension=='pl')	
 				return $iconspath.'pl.png';

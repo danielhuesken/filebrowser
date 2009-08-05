@@ -4,7 +4,7 @@ Plugin Name: FileBrowser
 Plugin URI: http://danielhuesken.de/portfolio/filebroweser/
 Description: Backup and more of your WordPress Blog Database and Files.
 Author: Daniel H&uuml;sken
-Version: 0.5.1
+Version: 0.5.2
 Author URI: http://danielhuesken.de
 Text Domain: filebrowser
 Domain Path: /lang/
@@ -35,7 +35,7 @@ if ( !defined('ABSPATH') )
 //Set plugin dirname
 define('FILEBROWSER_PLUGIN_DIR', dirname(plugin_basename(__FILE__)));
 //Set Plugin Version
-define('FILEBROWSER_VERSION', '0.5.1');
+define('FILEBROWSER_VERSION', '0.5.2');
 
 //load Text Domain
 load_plugin_textdomain('filebrowser', false, FILEBROWSER_PLUGIN_DIR.'/lang');	

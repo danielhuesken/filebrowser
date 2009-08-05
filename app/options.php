@@ -5,15 +5,18 @@ if ( !defined('ABSPATH') )
  
  	//Set dir
 	if (ini_get('open_basedir')) {
-		$opdenbasedirs=explode(':',str_replace('\\','/',ini_get('open_basedir')));
+		foreach (explode(':',str_replace('\\','/',ini_get('open_basedir'))) as $basedirs) {
+			$opdenbasedirs=trailingslashit($basedirs);
+		}
+		$opdenbasedirs=array_unique($opdenbasedirs);
+		sort($opdenbasedirs);
 	} else {
 		if (function_exists('posix_getpwuid'))
 			$opdenbasedirs=array('/');
 		else
 			$opdenbasedirs=array('A:/','B:/','C:/','D:/','E:/','F:/','G:/','H:/','I:/','J:/','K:/','L:/','M:/','N:/','O:/','P:/','Q:/','R:/','S:/','T:/','U:/','V:/','W:/','X:/','Y:/','Z:/');
 	}
-	$opdenbasedirs=array_unique($opdenbasedirs);
-	
+
 	$folder=trailingslashit($gotofolder);
 	if (!empty($_GET['gotofolder']))
 		$folder=trailingslashit(str_replace('\\','/',realpath($_GET['gotofolder']))); //dirchange
@@ -55,7 +58,7 @@ if (count($opdenbasedirs)>1) {
 }
 echo '<input type="hidden" name="oldusedfolder" value="'.esc_attr($folder).'" />';
 ?>
-<input type="text" size="60" name="newfolder" value="<?php echo $folderrest; ?>" />
+<input type="text" size="45" name="newfolder" value="<?php echo $folderrest; ?>" />
 <input type="submit" value="<?PHP _e('Go','filebrowser'); ?>" name="doactiongo" id="doactiongo" class="button-secondary action" />
 &nbsp;
 <?PHP if (!in_array($folder,$opdenbasedirs)) { ?>
@@ -187,7 +190,7 @@ echo '<input type="hidden" name="oldusedfolder" value="'.esc_attr($folder).'" />
 		<th scope="row" class="check-column">
 			<input type="checkbox" name="selfiles[]" value="<?PHP echo esc_attr($file);?>" />
 		</th> 
-		<?PHP if (is_dir($file)) {?>
+		<?PHP if (@is_dir($file)) {?>
 		<td class="name column-name">
 					<img src="<?PHP echo filebrowser_fileicon($file); ?>" height="16" width="16" border="0" alt="<?PHP _e('Folder','filebrowser'); ?>" />&nbsp;
 					<?PHP if ($_GET['action']=='rename' and $_GET['filerename']==$file) {?>
