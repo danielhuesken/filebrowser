@@ -6,7 +6,7 @@ if ( !defined('ABSPATH') )
  	//Set dir
 	if (ini_get('open_basedir')) {
 		foreach (explode(':',str_replace('\\','/',ini_get('open_basedir'))) as $basedirs) {
-			$opdenbasedirs=trailingslashit($basedirs);
+			$opdenbasedirs[]=trailingslashit($basedirs);
 		}
 		$opdenbasedirs=array_unique($opdenbasedirs);
 		sort($opdenbasedirs);
