@@ -8,15 +8,15 @@ if ( !defined('ABSPATH') )
 		foreach (explode(':',str_replace('\\','/',ini_get('open_basedir'))) as $basedirs) {
 			$opdenbasedirs[]=trailingslashit($basedirs);
 		}
-		$opdenbasedirs=array_unique($opdenbasedirs);
-		sort($opdenbasedirs);
 	} else {
 		if (function_exists('posix_getpwuid'))
 			$opdenbasedirs=array('/');
-		else
+		else 
 			$opdenbasedirs=array('A:/','B:/','C:/','D:/','E:/','F:/','G:/','H:/','I:/','J:/','K:/','L:/','M:/','N:/','O:/','P:/','Q:/','R:/','S:/','T:/','U:/','V:/','W:/','X:/','Y:/','Z:/');
 	}
-
+	$opdenbasedirs=array_unique($opdenbasedirs);
+	sort($opdenbasedirs);
+	
 	$folder=trailingslashit($gotofolder);
 	if (!empty($_GET['gotofolder']))
 		$folder=trailingslashit(str_replace('\\','/',realpath($_GET['gotofolder']))); //dirchange
@@ -66,10 +66,10 @@ echo '<input type="hidden" name="oldusedfolder" value="'.esc_attr($folder).'" />
 <?PHP } ?>
 <a href="admin.php?page=FileBrowser&amp;gotofolder=<?PHP echo $folder; if (!empty($_GET['copyfiles'])) echo '&amp;copyfiles='.esc_attr($_GET['copyfiles']); if (!empty($_GET['movefiles'])) echo '&amp;movefiles='.esc_attr($_GET['movefiles']);?>"><img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR; ?>/app/icons/arrow_refresh.png" border="0" title="<?PHP _e('Refresh','filebrowser');?>" alt="<?PHP _e('Refresh','filebrowser');?>" /></a>&nbsp;
 <?PHP if (!empty($_GET['copyfiles'])) { ?>
-	<a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=copynow&copyfiles='.esc_attr($_GET['copyfiles']).'&copyto='.esc_attr($folder), 'filebrowser'); ?>"><img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR; ?>/app/icons/arrow_in.png" border="0" title="<?PHP _e('Copy hier','filebrowser');?>" alt="<?PHP _e('Copy hier','filebrowser');?>" /></a>&nbsp;
+	<a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=copynow&copyfiles='.esc_attr($_GET['copyfiles']).'&copyto='.esc_attr($folder), 'filebrowser'); ?>"><img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR; ?>/app/icons/arrow_in.png" border="0" title="<?PHP _e('Copy to','filebrowser');?>" alt="<?PHP _e('Copy to','filebrowser');?>" /></a>&nbsp;
 <?PHP } ?>
 <?PHP if (!empty($_GET['movefiles'])) { ?>
-	<a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=movenow&movefiles='.esc_attr($_GET['movefiles']).'&moveto='.esc_attr($folder), 'filebrowser'); ?>"><img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR; ?>/app/icons/arrow_in.png" border="0" title="<?PHP _e('Move hier','filebrowser');?>" alt="<?PHP _e('Move hier','filebrowser');?>" /></a>&nbsp;
+	<a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=movenow&movefiles='.esc_attr($_GET['movefiles']).'&moveto='.esc_attr($folder), 'filebrowser'); ?>"><img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR; ?>/app/icons/arrow_in.png" border="0" title="<?PHP _e('Move to','filebrowser');?>" alt="<?PHP _e('Move to','filebrowser');?>" /></a>&nbsp;
 <?PHP } ?>
 
 </div> 
@@ -138,7 +138,7 @@ echo '<input type="hidden" name="oldusedfolder" value="'.esc_attr($folder).'" />
 		<td class="name column-name">
 			<img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR.'/app/icons/file.png'; ?>" height="16" width="16" border="0" title="<?PHP _e('Create empty','filebrowser'); ?>" alt="<?PHP _e('Create empty','filebrowser'); ?>" />&nbsp;
 			<input type="text" class="regular-text" name="newname" size="30" value="" />
-			<select name="type"><option value="dir"><?PHP _e('Directory','filebrowser');?></option><option value="file"><?PHP _e('File','filebrowser');?></option></select><br />
+			<select name="type"><option value="dir"><?PHP _e('Folder','filebrowser');?></option><option value="file"><?PHP _e('File','filebrowser');?></option></select><br />
 			<input type="hidden" name="dir" value="<?PHP echo esc_attr($folder);?>" />
 			<img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR.'/app/icons/disk.png'; ?>" height="16" width="16" border="0" title="<?PHP _e('Upload file','filebrowser'); ?>" alt="<?PHP _e('Upload file','filebrowser'); ?>" />&nbsp;<input name="uplodfile" type="file" size="40" class="file"> <?PHP echo _e('Max size:','filebrowser').' '.ini_get('upload_max_filesize');?><br />
 			<img src="<?PHP echo WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR.'/app/icons/connect.png'; ?>" height="16" width="16" border="0" title="<?PHP _e('Copy file from URL','filebrowser'); ?>" alt="<?PHP _e('Copy file from URL','filebrowser'); ?>" />&nbsp;<input type="text" class="regular-text" size="40" name="copyfile" value="" />&nbsp;

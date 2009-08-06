@@ -65,7 +65,7 @@ if ( !defined('ABSPATH') )
 				$gotofolder=str_replace('\\','/',realpath($_POST['root'].$_POST['newfolder']));
 			} else {
 				$gotofolder=$_POST['oldusedfolder'];
-				$filebrowser_message=__('Could not joump to folder.','filebrowser');
+				$filebrowser_message=__('Could not jump to folder.','filebrowser');
 			}
 		}
 		//For save Options

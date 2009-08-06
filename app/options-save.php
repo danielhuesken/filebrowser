@@ -51,7 +51,7 @@ case 'delete' :
 	foreach ($files as $file) {
 		if (is_dir($file)) {
 			filebrowser_rmdirr($file);
-			$filebrowser_message.=str_replace('%1',basename($file),__('Dir %1 deleted recursiv.','filebrowser')).'<br />';
+			$filebrowser_message.=str_replace('%1',basename($file),__('Folder %1 deleted recursive.','filebrowser')).'<br />';
 		} else {
 			if (@unlink($file))
 				$filebrowser_message.=str_replace('%1',basename($file),__('File %1 deleted.','filebrowser')).'<br />';
@@ -122,16 +122,16 @@ case 'copynow' :
 			else
 				$dirto=$to.basename($file);
 			filebrowser_copydir($file,$dirto);
-			$filebrowser_message.=str_replace('%1',basename($dirto),__('Dir to %1 copyed.','filebrowser')).'<br />';
+			$filebrowser_message.=str_replace('%1',basename($dirto),__('Folder copied to %1.','filebrowser')).'<br />';
 		} else {
 			if (is_file($to.basename($file)))
 				$fileto=$to.__('Copy of','filebrowser').' '.basename($file);
 			else
 				$fileto=$to.basename($file);
 			if (copy($file,$fileto))
-				$filebrowser_message.=str_replace('%1',basename($file),__('File %1 copyed to.','filebrowser')).' '.basename($fileto).'<br />';
+				$filebrowser_message.=str_replace('%1',basename($file),__('File %1 copied to.','filebrowser')).' '.basename($fileto).'<br />';
 			else 
-				$filebrowser_message.=str_replace('%1',basename($file),__('File %1 NOT coyed.','filebrowser')).'<br />';
+				$filebrowser_message.=str_replace('%1',basename($file),__('File %1 NOT copied.','filebrowser')).'<br />';
 		}
 	}	
 	$gotofolder=$to;
@@ -145,9 +145,9 @@ case 'movenow' :
 	$to=$_GET['moveto'];
 	foreach ($files as $file) {
 		if (@rename($file,$to.basename($file)))
-			$filebrowser_message.=str_replace('%1',basename($file),__('File/Dir %1 moved to','filebrowser').' '.$to.basename($file)).'<br />';
+			$filebrowser_message.=str_replace('%1',basename($file),__('File/Folder %1 moved to','filebrowser').' '.$to.basename($file)).'<br />';
 		else 
-			$filebrowser_message.=str_replace('%1',basename($file),__('File/Dir %1 NOT moved.','filebrowser')).'<br />';
+			$filebrowser_message.=str_replace('%1',basename($file),__('File/Folder %1 NOT moved.','filebrowser')).'<br />';
 	}
 	$gotofolder=$to;
 	unset($_GET['gotofolder']);
@@ -164,9 +164,9 @@ if ($_POST['doactionrename']==__('Rename','filebrowser')) {
 	if (!empty($oldfile) and !empty($newname)) {
 		if (is_dir($oldfile)) {
 			if (@rename($oldfile,realpath($oldfile.'/..').'/'.$newname))
-				$filebrowser_message=str_replace('%1',basename($oldfile),__('Dir %1 renamed to','filebrowser').' '.$newname);
+				$filebrowser_message=str_replace('%1',basename($oldfile),__('Folder %1 renamed to','filebrowser').' '.$newname);
 			else
-				$filebrowser_message=str_replace('%1',basename($oldfile),__('Dir %1 NOT renamed.','filebrowser'));
+				$filebrowser_message=str_replace('%1',basename($oldfile),__('Folder %1 NOT renamed.','filebrowser'));
 		} else {
 			if (@rename($oldfile,dirname($oldfile).'/'.$newname))
 				$filebrowser_message=str_replace('%1',basename($oldfile),__('File %1 renamed to.','filebrowser').' '.$newname);
@@ -189,9 +189,9 @@ if ($_POST['doactionnew']==__('Create','filebrowser')) {
 	if (!empty($folder) and !empty($newname)) {
 		if ($type=='dir') {
 			if (@mkdir($folder.$newname,0777))
-				$filebrowser_message=str_replace('%1',$newname,__('Dir %1 created.','filebrowser'));
+				$filebrowser_message=str_replace('%1',$newname,__('Folder %1 created.','filebrowser'));
 			else 
-				$filebrowser_message=str_replace('%1',$newname,__('Dir %1 NOT created.','filebrowser'));
+				$filebrowser_message=str_replace('%1',$newname,__('Folder %1 NOT created.','filebrowser'));
 		} elseif ($type=='file') {
 			if ($fd=@fopen($folder.$newname,'w')) {
 				fwrite($fd,' ');
@@ -209,9 +209,9 @@ if ($_POST['doactionnew']==__('Create','filebrowser')) {
 	}
 	if (!empty($folder) and !empty($copyfile)) {
 		if (copy($copyfile,$folder.basename($copyfile)))
-			$filebrowser_message=str_replace('%1',basename($copyfile),__('File %1 copyed.','filebrowser'));
+			$filebrowser_message=str_replace('%1',basename($copyfile),__('File %1 copied.','filebrowser'));
 		else
-			$filebrowser_message=str_replace('%1',$copyfile,__('File %1 NOT copyed.','filebrowser'));
+			$filebrowser_message=str_replace('%1',$copyfile,__('File %1 NOT copied.','filebrowser'));
 	}
 	$gotofolder=$folder;
 	unset($_GET['gotofolder']);

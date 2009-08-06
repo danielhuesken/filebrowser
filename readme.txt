@@ -10,16 +10,16 @@ File/Folder Browser for WP Backend
 
 == Description ==
 
-Browse files and Diectorys in WordPress backend
+Browse Files and Folder in WordPress backend
 
 * Browse Files/Folder
 * Download Files
-* Edit Files with codepress
+* Edit Files with codemirror
 * ZIP Files and UNZIP Files
-* Delete Files/Folder recursiv
-* Copy Files/Folder recursiv
+* Delete Files/Folder recursive
+* Copy Files/Folder recursive
 * Move Files/Folder
-* Change premissions of Files/Folder
+* Change permissions of Files/Folder
 * Rename Files/Folder
 
 Use it with most careful!!!
@@ -33,22 +33,24 @@ Use it with most careful!!!
 == Frequently Asked Questions ==
 
 
-
 == Screenshots ==
 
 1. Options (Browser) Page
 
 == Changelog ==
+= 0.5.3 =
+* spell check
+
 = 0.5.2 =
-* littel bug fixes and iprofments
+* little bug fixes and improvements
 
 = 0.5.1 =
 * Respect open_basedir restriction
 * removed codepress in editor
-* add codemirror in editor for syntaxheigleiding
-* removed anchor becouse work not correctly
-* make chnages more robust
-* pevent directly file loading
+* add codemirror in editor for syntaxhighlighting
+* removed anchor because work not correctly
+* make changes more robust
+* prevent directly file loading
 * fixed some bugs
 
 = 0.5.0 =
