@@ -206,7 +206,7 @@ echo '<input type="hidden" name="oldusedfolder" value="'.esc_attr($folder).'" />
 						<span class="move"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=move&selfiles='.esc_attr($file), 'filebrowser'); ?>"><?PHP _e('Move','filebrowser'); ?></a> | </span>
 						<span class="rename"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=rename&filerename='.esc_attr($file).'&gotofolder='.esc_attr(dirname($file)), 'rename-file_'.esc_attr($file)); ?>"><?PHP _e('Rename','filebrowser'); ?></a> | </span>
 						<?PHP if (function_exists('posix_getpwuid') and function_exists('posix_getgrgid')) {?>
-							<span class="premissions"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=premissions&filepremissions='.esc_attr($file), 'premissions-file_'.esc_attr($file)); ?>"><?PHP _e('Premissions','filebrowser'); ?></a> | </span>
+							<span class="premissions"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=premissions&filepremissions='.esc_attr($file), 'premissions-file_'.esc_attr($file)); ?>"><?PHP _e('Permissions','filebrowser'); ?></a> | </span>
 						<?PHP } ?>
 						<span class="zip"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=zip&selfiles='.esc_attr($file).'&gotofolder='.esc_attr($file.'/..'), 'filebrowser'); ?>"><?PHP _e('Zip','filebrowser'); ?></a></span>
 					</div>
@@ -230,7 +230,7 @@ echo '<input type="hidden" name="oldusedfolder" value="'.esc_attr($folder).'" />
 						<span class="move"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=move&selfiles='.esc_attr($file), 'filebrowser'); ?>"><?PHP _e('Move','filebrowser'); ?></a> | </span>
 						<span class="rename"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=rename&filerename='.esc_attr($file).'&gotofolder='.esc_attr(dirname($file)), 'rename-file_'.esc_attr($file)); ?>"><?PHP _e('Rename','filebrowser'); ?></a> | </span>
 						<?PHP if (function_exists('posix_getpwuid') and function_exists('posix_getgrgid')) {?>
-							<span class="premissions"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=premissions&filepremissions='.esc_attr($file), 'premissions-file_'.esc_attr($file)); ?>"><?PHP _e('Premissions','filebrowser'); ?></a> | </span>
+							<span class="premissions"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=premissions&filepremissions='.esc_attr($file), 'premissions-file_'.esc_attr($file)); ?>"><?PHP _e('Permissions','filebrowser'); ?></a> | </span>
 						<?PHP }
 						if (strtolower(pathinfo($file,PATHINFO_EXTENSION))=="zip") {?>
 							<span class="zip"><a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=unzip&selfiles='.esc_attr($file), 'filebrowser'); ?>"><?PHP _e('UnZip here','filebrowser'); ?></a></span>
