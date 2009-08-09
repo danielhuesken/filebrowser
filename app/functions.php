@@ -84,7 +84,7 @@ if ( !defined('ABSPATH') )
 		if ($file == FILEBROWSER_PLUGIN_DIR.'/filebrowser.php') {
 			$links[] = '<a href="http://wordpress.org/extend/plugins/filebrowser/faq/" target="_blank">' . __('FAQ') . '</a>';
 			$links[] = '<a href="http://wordpress.org/tags/filebrowser/" target="_blank">' . __('Support') . '</a>';
-			$links[] = '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=daniel%40huesken-net%2ede&item_name=Daniel%20Huesken%20Plugin%20Donation&item_number=FileBrowser&no_shipping=0&no_note=1&tax=0&currency_code=EUR&lc=DE&bn=PP%2dDonationsBF&charset=UTF%2d8" target="_blank">' . __('Donate') . '</a>';
+			$links[] = '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=daniel%40huesken-net%2ede&amp;item_name=Daniel%20Huesken%20Plugin%20Donation&amp;item_number=FileBrowser&amp;no_shipping=0&amp;no_note=1&amp;tax=0&amp;currency_code=EUR&amp;lc=DE&amp;bn=PP%2dDonationsBF&amp;charset=UTF%2d8" target="_blank">' . __('Donate') . '</a>';
 		}
 		return $links;
 	}

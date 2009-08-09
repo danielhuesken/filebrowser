@@ -38,6 +38,8 @@ Use it with most careful!!!
 1. Options (Browser) Page
 
 == Changelog ==
+= 0.5.4 =
+
 = 0.5.3 =
 * spell check
 
