@@ -39,6 +39,7 @@ Use it with most careful!!!
 
 == Changelog ==
 = 0.5.4 =
+* fiexed chmod
 
 = 0.5.3 =
 * spell check
