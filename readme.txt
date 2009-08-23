@@ -3,8 +3,8 @@ Contributors: danielhuesken
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=daniel%40huesken-net%2ede&item_name=Daniel%20Huesken%20Plugin%20Donation&item_number=FileBrowser&no_shipping=0&no_note=1&tax=0&currency_code=EUR&lc=DE&bn=PP%2dDonationsBF&charset=UTF%2d8
 Tags: admin, file, folder
 Requires at least: 2.8
-Tested up to: 2.8.3
-Stable tag: 0.5.3
+Tested up to: 2.8.4
+Stable tag: 0.5.4
 
 File/Folder Browser for WP Backend
 
