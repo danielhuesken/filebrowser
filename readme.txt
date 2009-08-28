@@ -40,7 +40,6 @@ Use it with most careful!!!
 == Changelog ==
 = 0.5.5 =
 * use PATH_SEPARATOR instad of :
-* added plugin revision
 
 = 0.5.4 =
 * fiexed chmod

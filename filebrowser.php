@@ -35,10 +35,7 @@ if ( !defined('ABSPATH') )
 define('FILEBROWSER_PLUGIN_DIR', dirname(plugin_basename(__FILE__)));
 
 //Set Plugin Version
-define ( 'FILEBROWSER_PLUGIN_REVISION', preg_replace( '/\$Rev: (.+) \$/', '\\1',
-	'$Rev: 519 $') ); // this needs to be on a separate line so that svn:keywords can work its magic
-//Set Plugin Version
-define('FILEBROWSER_VERSION', '0.5.5.'.FILEBROWSER_PLUGIN_REVISION);
+define('FILEBROWSER_VERSION', '0.5.5');
 
 //load Text Domain
 load_plugin_textdomain('filebrowser', false, FILEBROWSER_PLUGIN_DIR.'/lang');	
