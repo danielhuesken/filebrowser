@@ -37,6 +37,8 @@ define('FILEBROWSER_PLUGIN_DIR', dirname(plugin_basename(__FILE__)));
 //Set Plugin Version
 define('FILEBROWSER_VERSION', '0.5.5');
 
+global $wp_version;
+
 //load Text Domain
 load_plugin_textdomain('filebrowser', false, FILEBROWSER_PLUGIN_DIR.'/lang');	
 //Load functions file
