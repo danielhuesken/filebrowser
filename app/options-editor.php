@@ -37,12 +37,12 @@ if ( !defined('ABSPATH') )
 		var editor = CodeMirror.fromTextArea('newfilecontent', {
 			height: "450px",
 			parserfile: ["parsexml.js", "parsedummy.js", "parsecss.js", "tokenizejavascript.js", "parsejavascript.js","tokenizephp.js", "parsephp.js","parsephphtmlmixed.js","parselua.js"],
-			stylesheet: ["<?PHP echo plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/codemirror/css/'); ?>xmlcolors.css",
-						"<?PHP echo plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/codemirror/css/'); ?>jscolors.css",
-						"<?PHP echo plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/codemirror/css/'); ?>csscolors.css",
-						"<?PHP echo plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/codemirror/css/'); ?>luacolors.css", 
-						"<?PHP echo plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/codemirror/css/'); ?>phpcolors.css"],
-			path: "<?PHP echo plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/codemirror/js/'); ?>",
+			stylesheet: ["<?PHP echo plugins_url('',__FILE__); ?>/codemirror/css/xmlcolors.css",
+						"<?PHP echo plugins_url('',__FILE__); ?>/codemirror/css/jscolors.css",
+						"<?PHP echo plugins_url('',__FILE__); ?>/codemirror/css/csscolors.css",
+						"<?PHP echo plugins_url('',__FILE__); ?>/codemirror/css/luacolors.css", 
+						"<?PHP echo plugins_url('',__FILE__); ?>/codemirror/css/phpcolors.css"],
+			path: "<?PHP echo plugins_url('',__FILE__); ?>/codemirror/js/",
 			continuousScanning: 500,
 			lineNumbers: true,
 			textWrapping: false

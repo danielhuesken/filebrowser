@@ -31,18 +31,16 @@ Domain Path: /lang/
 // don't load directly 
 if ( !defined('ABSPATH') ) 
 	die('-1');
+
 //Set plugin dirname
 define('FILEBROWSER_PLUGIN_DIR', dirname(plugin_basename(__FILE__)));
-
 //Set Plugin Version
 define('FILEBROWSER_VERSION', '0.5.5');
-
 global $wp_version;
-
 //load Text Domain
-load_plugin_textdomain('filebrowser', false, FILEBROWSER_PLUGIN_DIR.'/lang');	
+load_plugin_textdomain('filebrowser', false, dirname(plugin_basename(__FILE__)).'/lang');	
 //Load functions file
-require_once(WP_PLUGIN_DIR.'/'.FILEBROWSER_PLUGIN_DIR.'/app/functions.php');
+require_once(plugin_dir_path(__FILE__).'app/functions.php');
 
 //Version check
 if (version_compare($wp_version, '2.8', '<')) { // Let only Activate on WordPress Version 2.8 or heiger

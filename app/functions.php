@@ -7,6 +7,7 @@ if ( !defined('ABSPATH') )
 	function filebrowser_menu_entry() {
 		$hook = add_management_page(__('FileBrowser','filebrowser'), __('FileBrowser','filebrowser'), '10', 'FileBrowser','filebrowser_options_page') ;
 		add_action('load-'.$hook, 'filebrowser_options_load');
+		register_column_headers($hook,array('cb'=>'<input type="checkbox" />','name'=>__('Name','filebrowser'),'size'=>__('Size','filebrowser'),'mdate'=>__('Date','filebrowser'),'premissions'=>__('Permissions','filebrowser')));
 		add_contextual_help($hook,filebrowser_show_help());
 	}	
 	
@@ -46,10 +47,10 @@ if ( !defined('ABSPATH') )
 			echo '<div id="message" class="updated fade"><p><strong>'.$filebrowser_message.'</strong></p></div>';
 		switch($_GET['action']) {
 		case 'edit':
-			require_once(WP_PLUGIN_DIR.'/'.FILEBROWSER_PLUGIN_DIR.'/app/options-editor.php');
+			require_once(plugin_dir_path(__FILE__).'options-editor.php');
 			break;
 		default:
-			require_once(WP_PLUGIN_DIR.'/'.FILEBROWSER_PLUGIN_DIR.'/app/options.php');
+			require_once(plugin_dir_path(__FILE__).'options.php');
 			break;
 		}
 	}
@@ -61,9 +62,9 @@ if ( !defined('ABSPATH') )
 		if (!current_user_can(10)) 
 			wp_die('No rights');
 		//Css for Admin Section
-		wp_enqueue_style('FileBrowser',plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/css/options.css'),'',FILEBROWSER_VERSION,'screen');
+		wp_enqueue_style('FileBrowser',plugins_url('/css/options.css',__FILE__),'',FILEBROWSER_VERSION,'screen');
 		if ($_GET['action']=='edit')
-			wp_enqueue_script('CodeMirror',plugins_url('/'.FILEBROWSER_PLUGIN_DIR.'/app/codemirror/js/codemirror.js'),'','0.62',false);
+			wp_enqueue_script('CodeMirror',plugins_url('/codemirror/js/codemirror.js',__FILE__),'','0.70',false);
 		if ($_POST['action2']!='-1')
 			$action=$_POST['action2'];
 		if ($_POST['action']!='-1')
@@ -80,7 +81,7 @@ if ( !defined('ABSPATH') )
 			}
 		}
 		//For save Options
-		require_once(WP_PLUGIN_DIR.'/'.FILEBROWSER_PLUGIN_DIR.'/app/options-save.php');
+		require_once(plugin_dir_path(__FILE__).'options-save.php');
 	}
 	
 	//add edit setting to plugins page
@@ -130,7 +131,7 @@ if ( !defined('ABSPATH') )
     }
 	
 	function filebrowser_fileicon($file='') {
-		$iconspath=WP_PLUGIN_URL.'/'.FILEBROWSER_PLUGIN_DIR.'/app/icons/';
+		$iconspath=plugins_url('',__FILE__).'/icons/';
 		if ($file=='')
 			return $iconspath.'file.png';
 		if (is_dir($file))
