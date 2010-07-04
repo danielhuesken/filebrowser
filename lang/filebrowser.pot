@@ -1,0 +1,358 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Daniel H&uuml;sken
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/filebrowser\n"
+"POT-Creation-Date: 2009-08-06 18:38+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. #-#-#-#-#  plugin.pot (PACKAGE VERSION)  #-#-#-#-#
+#. Plugin Name of an extension
+#: app/functions.php:8 app/options.php:26
+msgid "FileBrowser"
+msgstr ""
+
+#: app/functions.php:16 app/functions.php:86
+msgid "Support"
+msgstr ""
+
+#: app/functions.php:17 app/functions.php:85
+msgid "FAQ"
+msgstr ""
+
+#: app/functions.php:18
+msgid "Plugin Homepage"
+msgstr ""
+
+#: app/functions.php:19
+msgid "Plugin Home on WordPress.org"
+msgstr ""
+
+#: app/functions.php:20 app/functions.php:87
+msgid "Donate"
+msgstr ""
+
+#: app/functions.php:23
+msgid "Version:"
+msgstr ""
+
+#: app/functions.php:24
+msgid "Author:"
+msgstr ""
+
+#: app/functions.php:63 app/options.php:62
+msgid "Go"
+msgstr ""
+
+#: app/functions.php:68
+msgid "Could not jump to folder."
+msgstr ""
+
+#: app/functions.php:77
+msgid "Go to Settings Page"
+msgstr ""
+
+#: app/functions.php:77
+msgid "Settings"
+msgstr ""
+
+#: app/options-editor.php:8
+msgid "FileBrowser Editor"
+msgstr ""
+
+#: app/options-editor.php:10
+msgid "Edit:"
+msgstr ""
+
+#: app/options-editor.php:31
+msgid "Update File"
+msgstr ""
+
+#: app/options-save.php:13
+msgid "File edited successfully."
+msgstr ""
+
+#: app/options-save.php:15
+msgid "Could not save to file."
+msgstr ""
+
+#: app/options-save.php:18
+msgid "Could not write file."
+msgstr ""
+
+#: app/options-save.php:40
+msgid "File does not exist."
+msgstr ""
+
+#: app/options-save.php:54
+msgid "Folder %1 deleted recursive."
+msgstr ""
+
+#: app/options-save.php:57
+msgid "File %1 deleted."
+msgstr ""
+
+#: app/options-save.php:59
+msgid "File %1 NOT deleted."
+msgstr ""
+
+#: app/options-save.php:76
+msgid "Can NOT extract Zip file:"
+msgstr ""
+
+#: app/options-save.php:78
+msgid "Zip File %1 extracted."
+msgstr ""
+
+#: app/options-save.php:121 app/options-save.php:128
+msgid "Copy of"
+msgstr ""
+
+#: app/options-save.php:125
+msgid "Folder copied to %1."
+msgstr ""
+
+#: app/options-save.php:132
+msgid "File %1 copied to."
+msgstr ""
+
+#: app/options-save.php:134 app/options-save.php:214
+msgid "File %1 NOT copied."
+msgstr ""
+
+#: app/options-save.php:148
+msgid "File/Folder %1 moved to"
+msgstr ""
+
+#: app/options-save.php:150
+msgid "File/Folder %1 NOT moved."
+msgstr ""
+
+#: app/options-save.php:158 app/options.php:197 app/options.php:207
+#: app/options.php:218 app/options.php:231
+msgid "Rename"
+msgstr ""
+
+#: app/options-save.php:167
+msgid "Folder %1 renamed to"
+msgstr ""
+
+#: app/options-save.php:169
+msgid "Folder %1 NOT renamed."
+msgstr ""
+
+#: app/options-save.php:172
+msgid "File %1 renamed to."
+msgstr ""
+
+#: app/options-save.php:174
+msgid "File %1 NOT renamed."
+msgstr ""
+
+#: app/options-save.php:181 app/options.php:145
+msgid "Create"
+msgstr ""
+
+#: app/options-save.php:192
+msgid "Folder %1 created."
+msgstr ""
+
+#: app/options-save.php:194
+msgid "Folder %1 NOT created."
+msgstr ""
+
+#: app/options-save.php:200
+msgid "File %1 created."
+msgstr ""
+
+#: app/options-save.php:202
+msgid "File %1 NOT created."
+msgstr ""
+
+#: app/options-save.php:208
+msgid "File %1 uploaded."
+msgstr ""
+
+#: app/options-save.php:212
+msgid "File %1 copied."
+msgstr ""
+
+#: app/options-save.php:221 app/options.php:273
+msgid "Change"
+msgstr ""
+
+#: app/options-save.php:235
+msgid "Permissions of File %1 changed to"
+msgstr ""
+
+#: app/options-save.php:239
+msgid "Owner of File %1 changed to"
+msgstr ""
+
+#: app/options-save.php:243
+msgid "Group of File %1 changed to"
+msgstr ""
+
+#: app/options-save.php:251 app/options.php:173
+msgid "Create Zip"
+msgstr ""
+
+#: app/options-save.php:267
+msgid "Can NOT create Zip file:"
+msgstr ""
+
+#: app/options-save.php:269
+msgid "Zip File %1 created."
+msgstr ""
+
+#: app/options.php:26
+msgid "Add New"
+msgstr ""
+
+#: app/options.php:35 app/options.php:294
+msgid "Bulk Actions"
+msgstr ""
+
+#: app/options.php:36 app/options.php:203 app/options.php:227
+#: app/options.php:295
+msgid "Delete"
+msgstr ""
+
+#: app/options.php:37 app/options.php:205 app/options.php:229
+#: app/options.php:296
+msgid "Copy"
+msgstr ""
+
+#: app/options.php:38 app/options.php:206 app/options.php:230
+#: app/options.php:297
+msgid "Move"
+msgstr ""
+
+#: app/options.php:39 app/options.php:211 app/options.php:238
+#: app/options.php:298
+msgid "Zip"
+msgstr ""
+
+#: app/options.php:41 app/options.php:300
+msgid "Apply"
+msgstr ""
+
+#: app/options.php:65
+msgid ".."
+msgstr ""
+
+#: app/options.php:67
+msgid "Refresh"
+msgstr ""
+
+#: app/options.php:69
+msgid "Copy to"
+msgstr ""
+
+#: app/options.php:72
+msgid "Move to"
+msgstr ""
+
+#: app/options.php:86 app/options.php:98
+msgid "Name"
+msgstr ""
+
+#: app/options.php:87 app/options.php:99
+msgid "Size"
+msgstr ""
+
+#: app/options.php:88 app/options.php:100
+msgid "Date"
+msgstr ""
+
+#: app/options.php:90 app/options.php:102
+msgid "Permissions"
+msgstr ""
+
+#: app/options.php:139
+msgid "Create empty"
+msgstr ""
+
+#: app/options.php:141 app/options.php:195
+msgid "Folder"
+msgstr ""
+
+#: app/options.php:141
+msgid "File"
+msgstr ""
+
+#: app/options.php:143
+msgid "Upload file"
+msgstr ""
+
+#: app/options.php:143
+msgid "Max size:"
+msgstr ""
+
+#: app/options.php:144
+msgid "Copy file from URL"
+msgstr ""
+
+#: app/options.php:162
+msgid "Zip file name"
+msgstr ""
+
+#: app/options.php:203 app/options.php:227
+msgid ""
+"You are about to delete this File/Dir. \n"
+"  'Cancel' to stop, 'OK' to delete."
+msgstr ""
+
+#: app/options.php:209 app/options.php:233
+msgid "Permissions"
+msgstr ""
+
+#: app/options.php:224
+msgid "Edit"
+msgstr ""
+
+#: app/options.php:236
+msgid "UnZip here"
+msgstr ""
+
+#: app/options.php:268 app/options.php:271
+msgid "Own:"
+msgstr ""
+
+#: app/options.php:269 app/options.php:272
+msgid "Grp:"
+msgstr ""
+
+#: app/options.php:270
+msgid "Pub:"
+msgstr ""
+
+#: filebrowser.php:47
+msgid "Sorry, FileBrowser works only under WordPress 2.8 or higher"
+msgstr ""
+
+#. Plugin URI of an extension
+msgid "http://danielhuesken.de/portfolio/filebrowser/"
+msgstr ""
+
+#. Description of an extension
+msgid "Backup and more of your WordPress Blog Database and Files."
+msgstr ""
+
+#. Author of an extension
+msgid "Daniel H&uuml;sken"
+msgstr ""
+
+#. Author URI of an extension
+msgid "http://danielhuesken.de"
+msgstr ""
