@@ -231,7 +231,7 @@ if ($_POST['doactionpremissions']==__('Change','filebrowser')) {
 		foreach ($prems as $octals) {
 			$mode+=$octals;
 		}
-		if (chmod($changefile,intval('0'.$mode,8)))
+		if (chmod($changefile,'0'.$mode))
 			$filebrowser_message=str_replace('%1',basename($changefile),__('Permissions of File %1 changed to','filebrowser').' '.$mode);
 	}
 	if (!empty($owner) and !empty($changefile)) {
