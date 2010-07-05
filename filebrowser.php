@@ -2,7 +2,7 @@
 /*
 Plugin Name: FileBrowser
 Plugin URI: http://danielhuesken.de/portfolio/filebrowser/
-Description: Backup and more of your WordPress Blog Database and Files.
+Description: File/Folder Browser for WP Backend.
 Author: Daniel H&uuml;sken
 Version: 0.5.5
 Author URI: http://danielhuesken.de
