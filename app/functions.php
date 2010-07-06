@@ -21,14 +21,7 @@ if ( !defined('ABSPATH') )
 		$help .= ' | <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=daniel%40huesken-net%2ede&amp;item_name=Daniel%20Huesken%20Plugin%20Donation&amp;item_number=FileBrowser&amp;no_shipping=0&amp;no_note=1&amp;tax=0&amp;currency_code=EUR&amp;lc=DE&amp;bn=PP%2dDonationsBF&amp;charset=UTF%2d8" target="_blank">' . __('Donate') . '</a>';
 		$help .= " | <script type=\"text/javascript\">
 			var flattr_btn = 'compact';
-			var flattr_uid = '21883';
-			var flattr_tle = 'FileBrowser';
-			var flattr_dsc = 'FileBrowser for Wordpress backend';
-			var flattr_cat = 'software';
-			var flattr_lng = 'en_GB';
-			var flattr_tag = 'file, wordpress, edit, browse';
 			var flattr_url = 'http://danielhuesken.de/portfolio/filebrowser/';
-			var flattr_hide = 'false';
 			</script><script src=\"http://api.flattr.com/button/load.js\" type=\"text/javascript\"></script>";
 		$help .= "</div>\n";	
 		$help .= '<div class="metabox-prefs">';
