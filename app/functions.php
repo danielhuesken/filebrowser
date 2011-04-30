@@ -5,10 +5,8 @@ if ( !defined('ABSPATH') )
 	
 	//Thems Option menu entry
 	function filebrowser_menu_entry() {
-		$hook = add_management_page(__('FileBrowser','filebrowser'), __('FileBrowser','filebrowser'), '10', 'FileBrowser','filebrowser_options_page') ;
+		$hook = add_management_page(__('FileBrowser','filebrowser'), __('FileBrowser','filebrowser'), 'install_plugins', 'FileBrowser','filebrowser_options_page') ;
 		add_action('load-'.$hook, 'filebrowser_options_load');
-		register_column_headers($hook,array('cb'=>'<input type="checkbox" />','name'=>__('Name','filebrowser'),'size'=>__('Size','filebrowser'),'mdate'=>__('Date','filebrowser'),'premissions'=>__('Permissions','filebrowser')));
-		add_contextual_help($hook,filebrowser_show_help());
 	}	
 	
 	// Help too display
@@ -34,7 +32,7 @@ if ( !defined('ABSPATH') )
 	//Options Page
 	function filebrowser_options_page() {
 		global $filebrowser_message,$gotofolder,$page_hook;
-		if (!current_user_can(10)) 
+		if (!current_user_can('install_plugins')) 
 			wp_die('No rights');
 		if(!empty($filebrowser_message)) 
 			echo '<div id="message" class="updated fade"><p><strong>'.$filebrowser_message.'</strong></p></div>';
@@ -51,6 +49,8 @@ if ( !defined('ABSPATH') )
 	//Options Page
 	function filebrowser_options_load() {
 		global $filebrowser_message,$gotofolder;
+		register_column_headers($hook,array('cb'=>'<input type="checkbox" />','name'=>__('Name','filebrowser'),'size'=>__('Size','filebrowser'),'mdate'=>__('Date','filebrowser'),'premissions'=>__('Permissions','filebrowser')));
+		add_contextual_help($hook,filebrowser_show_help());
 		$gotofolder=str_replace('\\','/',ABSPATH);
 		if (!current_user_can(10)) 
 			wp_die('No rights');
@@ -337,7 +337,7 @@ if ( !defined('ABSPATH') )
 		//add Menu
 		add_action('admin_menu', 'filebrowser_menu_entry');
 		//Additional links on the plugin page
-		if (current_user_can(10)) 
+		if (current_user_can('install_plugins')) 
 			add_filter('plugin_action_links_'.FILEBROWSER_PLUGIN_DIR.'/filebrowser.php', 'filebrowser_plugin_options_link');
 		if (current_user_can('install_plugins')) 		
 			add_filter('plugin_row_meta', 'filebrowser_plugin_links',10,2);
