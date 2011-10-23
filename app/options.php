@@ -138,8 +138,7 @@ echo '<input type="hidden" name="oldusedfolder" value="'.esc_attr($folder).'" />
 		</td>
 		<td class="column-size">&nbsp;</td> 
 		<td class="column-mdate">&nbsp;</td>
-		<td class="column-premissions">&nbsp;</td>
-		</td> 
+		<td class="column-premissions">&nbsp;</td> 
 	</tr>
 	<?PHP 
 	}
@@ -165,7 +164,6 @@ echo '<input type="hidden" name="oldusedfolder" value="'.esc_attr($folder).'" />
 		<td class="column-size">&nbsp;</td> 
 		<td class="column-mdate">&nbsp;</td>
 		<td class="column-premissions">&nbsp;</td>
-		</td> 
 	</tr>
 	<?PHP 
 	}
@@ -199,7 +197,7 @@ echo '<input type="hidden" name="oldusedfolder" value="'.esc_attr($folder).'" />
 						<?PHP if ($_GET['action']=='rename' and $_GET['filerename']==$file) {?>
 							<input type="text" class="regular-text" name="newname" value="<?PHP echo basename($file);?>" /><input type="hidden" name="oldfile" value="<?PHP echo esc_attr($file);?>" /><input type="submit" value="<?PHP _e('Rename','filebrowser'); ?>" name="doactionrename" class="button-secondary action" />
 						<?PHP } else { ?>
-							<strong><a href="admin.php?page=FileBrowser&amp;gotofolder=<?PHP echo esc_attr($file); if (!empty($_GET['copyfiles'])) echo '&amp;copyfiles='.esc_attr($_GET['copyfiles']); if (!empty($_GET['movefiles'])) echo '&amp;movefiles='.esc_attr($_GET['movefiles']);?>"><?PHP echo basename($file);?></a></strong>
+							<a href="admin.php?page=FileBrowser&amp;gotofolder=<?PHP echo esc_attr($file); if (!empty($_GET['copyfiles'])) echo '&amp;copyfiles='.esc_attr($_GET['copyfiles']); if (!empty($_GET['movefiles'])) echo '&amp;movefiles='.esc_attr($_GET['movefiles']);?>"><b><?PHP echo basename($file);?></b></a>
 						<?PHP } ?>
 						<div class="row-actions">
 							<?PHP if (is_writable($file)) {?>
