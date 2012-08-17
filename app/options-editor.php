@@ -7,7 +7,7 @@ if ( !defined('ABSPATH') )
 	<div id="icon-tools" class="icon32"><br /></div>
 <h2><?php _e("FileBrowser Editor", "filebrowser"); ?></h2>
 <div class="alignleft">
-<b><?php echo __('Edit:','filebrowser').' '.$_GET['selfile']; ?></b>
+<big><?php echo __('Edit:','filebrowser').' '.$_GET['selfile']; ?></big>
 </div>
 <br class="clear" /> 
 <form id="fileseditor" action="" method="post">

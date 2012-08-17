@@ -3,7 +3,7 @@ Contributors: danielhuesken
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=daniel%40huesken-net%2ede&item_name=Daniel%20Huesken%20Plugin%20Donation&item_number=FileBrowser&no_shipping=0&no_note=1&tax=0&currency_code=EUR&lc=DE&bn=PP%2dDonationsBF&charset=UTF%2d8
 Tags: admin, file, folder, browser, explorer
 Requires at least: 2.8
-Tested up to: 3.1.0
+Tested up to: 3.0.0
 Stable tag: 0.5.5
 
 File/Folder Browser for WP Backend
@@ -38,8 +38,6 @@ Use it with most careful!!!
 1. Options (Browser) Page
 
 == Changelog ==
-= 0.6.0 =
-
 = 0.5.5 =
 * use PATH_SEPARATOR instad of :
 * fixed global for $wp_version
