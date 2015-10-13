@@ -129,7 +129,7 @@ case 'copynow' :
 			else
 				$fileto=$to.basename($file);
 			if (copy($file,$fileto))
-				$filebrowser_message.=str_replace('%1',basename($file),__('File %1 copied to.','filebrowser')).' '.basename($fileto).'<br />';
+				$filebrowser_message.=str_replace('%1',basename($file),__('File %1 copied to','filebrowser')).' '.basename($fileto).'<br />';
 			else 
 				$filebrowser_message.=str_replace('%1',basename($file),__('File %1 NOT copied.','filebrowser')).'<br />';
 		}
@@ -169,7 +169,7 @@ if ($_POST['doactionrename']==__('Rename','filebrowser')) {
 				$filebrowser_message=str_replace('%1',basename($oldfile),__('Folder %1 NOT renamed.','filebrowser'));
 		} else {
 			if (@rename($oldfile,dirname($oldfile).'/'.$newname))
-				$filebrowser_message=str_replace('%1',basename($oldfile),__('File %1 renamed to.','filebrowser').' '.$newname);
+				$filebrowser_message=str_replace('%1',basename($oldfile),__('File %1 renamed to','filebrowser').' '.$newname);
 			else
 				$filebrowser_message=str_replace('%1',basename($oldfile),__('File %1 NOT renamed.','filebrowser'));
 		}
