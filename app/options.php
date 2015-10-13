@@ -51,7 +51,7 @@ if ( !defined('ABSPATH') )
  ?>
 <div class="wrap">
 	<div id="icon-tools" class="icon32"><br /></div>
-<h2><?php _e("FileBrowser", "filebrowser"); ?>&nbsp;<a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=new&gotofolder='.$folder, 'filebrowser'); ?>" class="button add-new-h2"><?php esc_html_e('Add New'); ?></a></h2>
+<h2><?php _e("FileBrowser", "filebrowser"); ?>&nbsp;<a href="<?PHP echo wp_nonce_url('admin.php?page=FileBrowser&action=new&gotofolder='.$folder, 'filebrowser'); ?>" class="button add-new-h2"><?php esc_html_e("Add New", "filebrowser"); ?></a></h2>
 
 <form id="filebrowser" action="" method="post" enctype="multipart/form-data">
 <?php wp_nonce_field('filebrowser'); ?>
